@@ -11,7 +11,6 @@
     {
         private LibrarySystem librarySystem;
      
-
         [TestInitialize]
         public void Setup()
         {
@@ -32,16 +31,19 @@
 
         // --------------- - Removing Books ---------------
         [TestMethod]
-        public void Delete_HästRimligBook_byISBN_Frombooks()
+        public void Delete_ExistingBook_byISBN_Frombooks()
         {
             // Given book to remove
+            Book book = new Book("Häst, det är Rimligt", "Petter Boström", "1234567890123", 2021);
+            librarySystem.AddBook(book);
+
             string isbnToRemove = "1234567890123"; // ISBN of "Häst, det är Rimligt - Petter Boström"
             
             // When removing the book
             bool result = librarySystem.RemoveBook(isbnToRemove);
             
             // Then the book should be removed successfully
-            Assert.IsFalse(result, "Failed to remove the book.");
+            Assert.IsTrue(result, "Failed to remove the book.");
         }
 
         [TestMethod]
@@ -274,8 +276,7 @@
             decimal fee = librarySystem.CalculateLateFee(book.ISBN, loanPeriod, dailyLateFee);
 
             // Assert
-            // Not overdue, fee should be zero
-            Assert.AreEqual(0m, fee, "No fee should be charged when the book is not overdue.");
+            Assert.AreEqual(0m, fee, "No fee should be charged when the book is not overdue."); // Not overdue, fee should be zero
         }
 
         // -------------------- Other tests --------------------
@@ -297,30 +298,4 @@
         }
 
     }
-
-
-
-
-}//## 2. Utlåningssystem
-
-//### 2.1 Låna ut böcker
-
-//Systemet ska hantera utlåning av böcker.
-
-//- En bok som lånas ut ska markeras som utlånad i systemet
-//- Redan utlånade böcker ska inte kunna lånas ut
-//- När en bok lånas ska rätt utlåningsdatum sättas
-
-//### 2.2 Återlämning
-
-//Systemet ska hantera återlämning av böcker.
-
-//- Vid återlämning ska bokens utlåningsdatum nollställas
-//- Endast utlånade böcker ska kunna återlämnas
-
-//### 2.3 Förseningshantering
-
-//Systemet ska kunna identifiera och hantera försenade böcker.
-
-//- Korrekt beräkning av om en bok är försenad ska implementeras
-//- Förseningsavgifter ska beräknas enligt specificerad formel (förseningsavgift * antal dagar försenad)
+}

@@ -15,6 +15,8 @@ Testerna visar att:
 - Dubbletter av ISBN tillåts inte.
 
 -------------------------------------------------------------- 
+Saker som jag ändra i backend:/ buggarn som upptäcktes under testning:
+
 - Vi stoppade att samma ISBN kan läggas till flera gånger.
 
 - Sökmetoderna är nu inte känsliga för stora och små bokstäver.
