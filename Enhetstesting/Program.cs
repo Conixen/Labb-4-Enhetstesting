@@ -14,9 +14,9 @@ class Program
 
 //Din uppgift är att skriva enhetstester som verifierar att nedanstående krav uppfylls. Tänk särskilt på:
 
-//-Att testa både normalfall och gränsfall
-//- Att verifiera att systemet hanterar felaktiga indata på ett korrekt sätt
-//- Att testa att systemet följer alla specificerade regler och begränsningar
+// - Att testa både normalfall och gränsfall
+// - Att verifiera att systemet hanterar felaktiga indata på ett korrekt sätt
+// - Att testa att systemet följer alla specificerade regler och begränsningar
 
 //    ## 1. Bokhantering
 
@@ -38,7 +38,7 @@ class Program
 
 //Systemet ska erbjuda flera sökfunktioner för att hitta böcker (ISBN, Titel eller författare):
 
-//-Sökning ska vara skiftlägesokänslig (versaler/gemener ska ge samma resultat)
+// - Sökning ska vara skiftlägesokänslig (versaler/gemener ska ge samma resultat)
 //- Sökningar ska kunna hitta böcker på delmatchningar (inte bara exakta matchningar)
 
 //## 2. Utlåningssystem

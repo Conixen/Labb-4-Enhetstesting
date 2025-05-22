@@ -1,0 +1,27 @@
+﻿Reflektion
+
+Testerna visar att:
+
+- Böcker kan läggas till och tas bort på rätt sätt.
+
+- Sökning fungerar för titel, författare och ISBN.
+
+- En bok kan bara lånas om den inte redan är utlånad.
+
+- En bok kan bara lämnas tillbaka om den är utlånad.
+
+- Systemet upptäcker när en bok är försenad och beräknar avgiften rätt.
+
+- Dubbletter av ISBN tillåts inte.
+
+-------------------------------------------------------------- 
+- Vi stoppade att samma ISBN kan läggas till flera gånger.
+
+- Sökmetoderna är nu inte känsliga för stora och små bokstäver.
+
+- När en bok lämnas tillbaka sätts BorrowDate till null.
+
+- Rättade så att förseningsavgiften räknas ut korrekt, 
+baserat på antal försenade dagar och avgift per dag.
+
+- Anpassade förseningsavgiften

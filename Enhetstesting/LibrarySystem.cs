@@ -22,10 +22,15 @@ namespace Enhetstesting
             books.Add(new Book("The Catcher in the Rye", "J.D. Salinger", "9780316769488", 1951));
             books.Add(new Book("Lord of the Flies", "William Golding", "9780399501487", 1954));
             books.Add(new Book("Brave New World", "Aldous Huxley", "9780060850524", 1932));
+            // books.Add(new Book("Häst, det är Rimligt", "Petter Boström", "1234567890123", 2025));   // example book added
         }
 
         public bool AddBook(Book book)
         {
+            if (SearchByISBN(book.ISBN) != null)
+            {
+                return false;                       // Book with the same ISBN already exists
+            }
             books.Add(book);
             return true;
         }
@@ -48,7 +53,9 @@ namespace Enhetstesting
 
         public List<Book> SearchByTitle(string title)
         {
-            return books.Where(b => b.Title == title).ToList();
+            return books
+                .Where(b => b.Title.Contains(title, StringComparison.OrdinalIgnoreCase))
+        .       ToList();
         }
 
         public List<Book> SearchByAuthor(string author)
@@ -74,6 +81,7 @@ namespace Enhetstesting
             if (book != null && book.IsBorrowed)
             {
                 book.IsBorrowed = false;
+                book.BorrowDate = null;                 // Reset borrow date
                 return true;
             }
             return false;
@@ -84,17 +92,20 @@ namespace Enhetstesting
             return books;
         }
 
-        public decimal CalculateLateFee(string isbn, int daysLate)
+        public decimal CalculateLateFee(string isbn, int loanPeriod, decimal dailyLateFee)
         {
+            Book book = SearchByISBN(isbn);
+            if (book == null || book.BorrowDate == null)
+                return 0;
+
+            // Count how many days the book has been borrowed
+            int daysBorrowed = (DateTime.Today - book.BorrowDate.Value).Days;
+            int daysLate = daysBorrowed - loanPeriod;
+
             if (daysLate <= 0)
                 return 0;
 
-            Book book = SearchByISBN(isbn);
-            if (book == null)
-                return 0;
-
-            decimal feePerDay = 0.5m;
-            return daysLate + feePerDay;
+            return daysLate * dailyLateFee;
         }
 
         public bool IsBookOverdue(string isbn, int loanPeriodDays)

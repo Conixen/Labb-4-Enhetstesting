@@ -249,19 +249,25 @@ namespace Enhetstesting
             Console.Write("Enter ISBN of book: ");
             string isbn = Console.ReadLine();
 
-            Console.Write("Enter number of days late: ");
-            if (int.TryParse(Console.ReadLine(), out int daysLate))
+            Console.Write("Enter loan period (days): ");
+            bool isLoanPeriodValid = int.TryParse(Console.ReadLine(), out int loanPeriod);
+
+            Console.Write("Enter daily late fee: ");
+            bool isDailyFeeValid = decimal.TryParse(Console.ReadLine(), out decimal dailyLateFee);
+
+            if (!isLoanPeriodValid || !isDailyFeeValid)
             {
-                decimal fee = library.CalculateLateFee(isbn, daysLate);
-                Console.WriteLine($"Late fee: ${fee}");
+                Console.WriteLine("Invalid input for loan period or daily late fee.");
             }
             else
             {
-                Console.WriteLine("Invalid number of days.");
+                decimal fee = library.CalculateLateFee(isbn, loanPeriod, dailyLateFee);
+                Console.WriteLine($"Late fee: {fee} SEK");
             }
 
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
+
     }
 }
